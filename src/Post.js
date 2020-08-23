@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import "./Post.css";
 import { Avatar } from "@material-ui/core";
 import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
@@ -7,35 +7,27 @@ import RepeatIcon from '@material-ui/icons/Repeat';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import PublishIcon from '@material-ui/icons/Publish';
 
-function Post({
-  displayName,
-  username,
-  verified,
-  text,
-  image,
-  avatar
-}) {
+const Post = forwardRef(({ displayName, username, verified, text, image, avatar }, ref) => {
   return (
-    <div className="post">
+    <div className="post" ref={ref}>
       <div className="post__avatar">
-        <Avatar src="https://kajabi-storefronts-production.global.ssl.fastly.net/theme/s/284832/settings_images/rLlCifgXRJiT0RoNjK_Logo_roundbackbround_black.png" />
+        <Avatar src={avatar} />
       </div>
       <div className="post__body">
         <div className="post__header">
           <div className="post__headerText">
             <h3>
-              Rafeh Qazi {" "}
+              {displayName} {" "}
               <span className="post__headerSpecial">
-                <VerifiedUserIcon className="post__badge" />
-                @cleverqazi
+                {verified && <VerifiedUserIcon className="post__badge" />} @{username}
               </span>
             </h3>
           </div>
           <div className="post__headerDescription">
-            <p>I challenge you to build a Twitter Clone with React!</p>
+            <p>{text}</p>
           </div>
         </div>
-        <img src="https://media.giphy.com/media/zJ1ASNErTzPbi/giphy.gif" alt="" />
+        <img src={image} alt="" />
         <div className="post__footer">
           <ChatBubbleOutlineIcon fontSize="small" />
           <RepeatIcon fontSize="small" />
@@ -45,6 +37,6 @@ function Post({
       </div>
     </div>
   );
-}
+});
 
 export default Post
